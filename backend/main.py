@@ -6,7 +6,9 @@ from models import Order, OrderItem
 from schemas import ItemCreate, ItemUpdate, BillCreate
 from menu import MENU
 
+
 Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI()
 
@@ -24,6 +26,7 @@ app.add_middleware(
 def get_menu():
 
     return MENU
+
 
 @app.post("/orders")
 def create_order():
@@ -61,6 +64,7 @@ def add_item(item: ItemCreate):
     ).first()
 
     if order is None:
+
         db.close()
 
         return {
@@ -76,6 +80,7 @@ def add_item(item: ItemCreate):
             for menu_item in items:
 
                 if menu_item["name"] == item.item_name:
+
                     price = menu_item["price"]
 
                     break
@@ -104,7 +109,6 @@ def add_item(item: ItemCreate):
     db.add(new_item)
 
     db.commit()
-
 
     items = db.query(OrderItem).filter(
         OrderItem.order_id == item.order_id
@@ -135,6 +139,7 @@ def get_order(order_id: int):
     ).first()
 
     if order is None:
+
         db.close()
 
         return {

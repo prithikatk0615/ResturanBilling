@@ -45,7 +45,10 @@ class OrderItem(Base):
 
     order_id = Column(
         Integer,
-        ForeignKey("orders.id", ondelete="CASCADE"),
+        ForeignKey(
+            "orders.id",
+            ondelete="CASCADE"
+        ),
         nullable=False
     )
 
